@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <title>Portable Wallet Profile for Portable Web Spaces</title>
+  <script src='https://www.w3.org/Tools/respec/respec-w3c' async class='remove'></script>
+  <script class='remove'>
+    // All config options at https://respec.org/docs/
+    var respecConfig = {
+      specStatus: "unofficial",
+      latestVersion: "https://interop-alliance.github.io/portable-wallet-profile-spec/",
+      editors: [{ name: "Dmitri Zagidulin", url: "https://interopalliance.org" }],
+      github: {
+        branch: "main",
+        repoURL: "https://github.com/interop-alliance/portable-wallet-profile-spec",
+      },
+      includePermalinks: false,
+      xref: ["did-core"],
+      localBiblio: {
+        "PWS": {
+          title: "Portable Web Spaces",
+          href: "https://w3c-ccg.github.io/wallet-attached-storage-spec/",
+          authors: ["Dmitri Zagidulin"],
+          publisher: "W3C Credentials Community Group"
+        },
+        "PWS-AUTHZ": {
+          title: "Portable Web Spaces Authorization Profile",
+          href: "https://w3id.org/pws/authz-profile",
+          authors: ["Dmitri Zagidulin"],
+          publisher: "W3C Credentials Community Group"
+        },
+        "PWS-EC": {
+          title: "Encrypted Collections for Portable Web Spaces",
+          href: "https://interop-alliance.github.io/encrypted-collections-spec/",
+          authors: ["Dmitri Zagidulin"],
+          publisher: "W3C Credentials Community Group (proposed work item)"
+        },
+        "APP-CONNECT": {
+          title: "App Connect for Portable Web Spaces",
+          href: "https://interop-alliance.github.io/app-connect-spec/",
+          authors: ["Dmitri Zagidulin"],
+          publisher: "W3C Credentials Community Group (proposed work item)"
+        },
+        "DID-KEY": {
+          title: "The did:key Method",
+          href: "https://w3c-ccg.github.io/did-key-spec/",
+          publisher: "W3C Credentials Community Group"
+        },
+        "DID-WEBVH": {
+          title: "The did:webvh DID Method",
+          href: "https://identity.foundation/didwebvh/",
+          publisher: "Decentralized Identity Foundation"
+        }
+      }
+    };
+    </script>
+</head>
+<body>
+<h1 id="title">Portable Wallet Profile for Portable Web Spaces v0.1</h1>
+<section id='abstract'>
+  <p>
+    A companion profile to Portable Web Spaces (PWS) for portable digital
+    wallets. It defines what a portable wallet needs from a PWS server (the
+    server requirements a wallet checks before it trusts a server with an
+    account) and how a portable wallet lays out its data on that server
+    (the Space roles an account holds, its system collections and records,
+    and the backup bundle an account is exported, restored, and moved
+    with), so that a wallet written in any language can read, restore, and
+    move an account written by another.
+  </p>
+</section>
+<section id="sotd">
+  <p>
+    This is an experimental specification and is undergoing regular revisions.
+  </p>
+</section>
+
+<section id="conformance">
+  <!-- The normative-language boilerplate is filled automatically by ReSpec. -->
+  <p>
+    This profile has two conformance targets. A server conforms to the
+    server requirements half when it satisfies every requirement of
+    <a href="#server-requirements">Server requirements</a>; nothing else in
+    this profile binds a server. A wallet conforms when it follows the
+    <a href="#wallet-data-conventions">Wallet data conventions</a> and
+    depends on a server only through the server requirements half.
+  </p>
+</section>
+
+<div data-include="spec.md" data-include-format="markdown" data-include-replace="true"></div>
+
+</body>
+</html>
