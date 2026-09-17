@@ -10,7 +10,8 @@
 > read, restore, and move an account written by another.
 
 This repository contains the Portable Wallet Profile specification, in
-[ReSpec Markdown](https://respec.org/docs/#markdown) format. It is a sibling
+[ReSpec Markdown](https://respec.org/docs/#markdown) format. Its persistent
+identifier is `https://w3id.org/pws/wallet-profile`. It is a sibling
 of the [Encrypted Collections](https://interop-alliance.github.io/encrypted-collections-spec/)
 and [App Connect](https://interop-alliance.github.io/app-connect-spec/)
 profiles.
