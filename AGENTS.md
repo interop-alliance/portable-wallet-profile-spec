@@ -91,8 +91,9 @@ and app-connect-spec repos):
   belong here.
 - **Byte-level values are permanent.** Space `type` arrays, system
   collection and resource names, record shapes, bundle manifest layout, and
-  this profile's persistent identifier are baked into stored artifacts and
-  served documents. Transcribe them from the implementing code and verify
+  this profile's persistent identifier `https://w3id.org/pws/wallet-profile`
+  (the `specs` key a server lists it under) are baked into stored artifacts
+  and served documents. Transcribe them from the implementing code and verify
   against it; never re-derive or rename without the user's sign-off.
 - **Altitude rule:** state invariants, not current implementations.
 - **Fail-closed extensibility** throughout: anything unrecognized is
