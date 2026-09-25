@@ -113,6 +113,7 @@ explicitly waived (`unaffected: <repo> (<why>)`).
 | --- | --- |
 | wallet-core | The account's Space layout and roles (`src/space/`), the user-key roster and unlock records (`src/keyring/`, `src/enrollment/`, `src/recovery/`), and the permanent-constants rows in its ARCHITECTURE.md. |
 | wallet-backup | The backup bundle codec and the export, restore, and move ceremonies. |
+| space-archive | The per-Space archive codec: the one reader and writer of the archive layout, consumed by wallet-backup and by was-teaching-server's export. |
 | was-client | The per-Space export and import bindings the bundle wraps; a connect-time check for this profile's service-description entry. |
 | freewallet | The web wallet: account creation, unlock methods, backup and restore UI. |
 | dcw (private) | The mobile wallet, over the same wallet-core modules. |
