@@ -725,6 +725,15 @@ prefix of the incoming bytes. Otherwise it is refused with 412. A `DELETE` of
 one is refused with 405. A governed history log carries the same fast-forward
 rule, for the same reason: a write grant can add history but cannot erase it.
 
+A prefix check alone still admits an append that does not verify. A junk line,
+or an entry whose proof fails, keeps the stored bytes as a prefix, yet leaves
+the controller unresolvable. So an append to a stored log must also verify.
+The server takes the DID from the `state.id` of the stored log's last entry. It
+verifies the whole incoming body as that DID's `did:webvh` history log, and
+refuses the write with 400 when it does not verify. A stored `did.jsonl` that
+names no DID cannot be appended to. The first write of a log, with nothing
+stored yet, is not checked this way.
+
 The rule applies to a `did.jsonl` resource in every collection, not only in
 `id`. A self-hosted DID names the collection its log lives in, and the client
 annex log does not live in `id`. A rule keyed on the collection name would
