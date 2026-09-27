@@ -643,7 +643,7 @@ Portable:
 * the user key and all of its roster wraps;
 * the blinded-index key wraps;
 * the unlock Space ids, each a hash of its unlock `did:key`;
-* a collection's `generator` and `generatorOrigin` attribution;
+* a collection's `generator` attribution (its `id`, `origin`, and `url`);
 * all of the content.
 
 What a move must redo is the authority layer alone. The logs are minted
