@@ -696,6 +696,62 @@ struck from the account document, its bridge capability is dead, and its
 registry entry is gone. What the attacker gains is a Space full of ciphertext
 they already had in the bundle.
 
+### A history log only grows at its host {#history-log-continuity}
+
+The account's `did:webvh` log and the client annex log are each stored as a
+`did.jsonl` resource. Each is the authorization root of the Spaces its DID
+controls. A server resolves the controller from that resource on every
+invocation, so whoever can rewrite the resource decides who controls the
+Space.
+
+Write access to the resource is broader than control of the account. The
+generation delegation a wallet's clients hold covers the whole Space subtree,
+and the log sits inside it. If the server treats the log as an ordinary
+resource, two attacks follow:
+
+* Rollback. Every prefix of a valid `did:webvh` log is itself a valid log with
+  the same SCID. A client whose key was retired in a later entry, and which
+  still holds a subtree grant, can put back the prefix that lists its key. Its
+  key is then current again, and it can take the Space.
+* Deletion. Removing the log, or overwriting it with bytes that do not
+  verify, leaves the controller unresolvable. Every invocation fails,
+  including the controller's own. The only repair is an update of the Space
+  Metadata, and that update would have to be authorized by the controller that
+  no longer resolves.
+
+The defense is a write rule on the resource itself, applied by the server. A
+`PUT` of a `did.jsonl` resource is accepted only when the stored bytes are a
+prefix of the incoming bytes. Otherwise it is refused with 412. A `DELETE` of
+one is refused with 405. A governed history log carries the same fast-forward
+rule, for the same reason: a write grant can add history but cannot erase it.
+
+The rule applies to a `did.jsonl` resource in every collection, not only in
+`id`. A self-hosted DID names the collection its log lives in, and the client
+annex log does not live in `id`. A rule keyed on the collection name would
+leave the annex log, and any account anchored elsewhere, open to both
+attacks. The rule is also unconditional. It does not wait until some Space
+names the DID as its controller. Checking for such a reference would mean
+scanning every Space on each delete, and the check could race a promotion.
+Leaving an unreferenced log deletable gains nothing.
+
+So a log goes away only with its collection or its Space. Deleting the
+collection that holds a controller's log leaves every Space that DID controls
+with no controller that resolves. There is no break-glass path. A wallet
+retires an account by deleting its Spaces, not its log.
+
+The rule does not stop an append whose new entries fail verification. Such a
+write keeps the stored bytes as a prefix, and it still leaves the controller
+unresolvable. It is caught when the controller is resolved, not refused when
+it is written.
+
+A restore is unaffected. It re-creates each Space at its original id and
+imports the archive into it (see [[[#restore-order]]]), so the log it lands is
+a create, not an overwrite. That is how a restore rolls the account document
+back (see [[[#restore-is-a-rollback]]]). It replaces the Space, which takes the
+controller's own authority, and does not rewrite a log that a subtree grant
+can reach. An import into a Space that still holds its log skips the log, and
+the document stays as it stands.
+
 ### An unprotected bundle is a bearer credential {#unprotected-bundle-is-a-bearer-credential}
 
 A bundle whose [=backup credential=] is packed plain (see
