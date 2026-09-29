@@ -270,7 +270,19 @@ its own manifest.
 
 The per-Space archive's internal layout -- its file-name codec, its dot-files,
 its manifest, and its entry order -- is specified in a section of its own,
-which this version of the profile does not yet carry.
+which this version of the profile does not yet carry. One property of the entry
+order is normative here, because a reader depends on it.
+
+A Resource stored as chunks has a chunk directory in its Collection's directory
+in the per-Space archive. It is the directory entry named
+`.chunks.<encodedResourceId>`, with the chunk files beneath it, and any
+per-chunk metadata sidecars. A writer MUST place all entries of one chunk
+directory together in the archive. That is the directory entry, its chunk files,
+and its sidecars, with no other entry between them. The position of a chunk
+directory relative to its Resource's representation file is not constrained. A
+reader MAY treat a Resource whose chunk directory is split as unreadable. Every
+other aspect of the per-Space archive's entry order remains unspecified in this
+version.
 
 #### The manifest {#bundle-manifest}
 
