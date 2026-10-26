@@ -148,7 +148,7 @@ explicitly waived (`unaffected: <repo> (<why>)`).
 These are separate repositories. Ground spec prose against real behavior --
 check with the user before editing anything in them.
 
-- [wallet-attached-storage-spec](https://github.com/w3c-ccg/wallet-attached-storage-spec)
+- [portable-web-spaces-spec](https://github.com/w3c-ccg/portable-web-spaces-spec)
   -- the PWS spec this profile layers on; its `spec.md` is the source of
   truth.
 - [encrypted-collections-spec](https://github.com/interop-alliance/encrypted-collections-spec)

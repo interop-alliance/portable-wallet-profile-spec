@@ -68,7 +68,7 @@ The persistent identifier of this specification is
 `https://w3id.org/pws/wallet-profile`.
 
 That string is the `specs` key a server lists this profile under (see the
-[Service Description](https://w3c-ccg.github.io/wallet-attached-storage-spec/#service-description)
+[Service Description](https://w3c-ccg.github.io/portable-web-spaces-spec/#service-description)
 of [[PWS]]). It names the specification, not the document's current
 location, and it never carries a version. The version entries under the key
 carry those. Clients compare the key as an opaque string, with no URL
@@ -100,7 +100,7 @@ server:
   the account's Space and its system collections by id, rather than
   through a Spaces Repository. The `spaces` URL member of the [[PWS]]
   entry (see the
-  [profile table](https://w3c-ccg.github.io/wallet-attached-storage-spec/#scope-and-conformance-profiles))
+  [profile table](https://w3c-ccg.github.io/portable-web-spaces-spec/#scope-and-conformance-profiles))
   is not required.
 * `policy`: reading and setting the access policy on a collection.
 * `export`: the per-Space export and import archive the backup bundle
@@ -115,9 +115,9 @@ server:
   wallet's clients co-manage key epochs.
 
 See the [[PWS]]
-[service description](https://w3c-ccg.github.io/wallet-attached-storage-spec/#service-description)
+[service description](https://w3c-ccg.github.io/portable-web-spaces-spec/#service-description)
 and
-[profile table](https://w3c-ccg.github.io/wallet-attached-storage-spec/#scope-and-conformance-profiles)
+[profile table](https://w3c-ccg.github.io/portable-web-spaces-spec/#scope-and-conformance-profiles)
 sections for the first seven tokens, and the [[PWS-EC]]
 [feature tokens](https://interop-alliance.github.io/encrypted-collections-spec/#feature-tokens)
 section for the last two.
@@ -134,7 +134,7 @@ A later version of this profile that requires a different companion
 version, or a different token set, is a new version entry. A server MAY
 list several versions of this profile at once. Versions follow the
 `major.minor` rule of the [[PWS]]
-[service description data model](https://w3c-ccg.github.io/wallet-attached-storage-spec/#service-description-data-model).
+[service description data model](https://w3c-ccg.github.io/portable-web-spaces-spec/#service-description-data-model).
 
 ### The profile's version entry {#version-entry}
 

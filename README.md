@@ -1,7 +1,7 @@
 # Portable Wallet Profile for Portable Web Spaces
 
 > The Portable Wallet Profile (PWS-WALLET) is a companion profile to the
-> [Portable Web Spaces spec](https://w3c-ccg.github.io/wallet-attached-storage-spec/).
+> [Portable Web Spaces spec](https://w3c-ccg.github.io/portable-web-spaces-spec/).
 > It defines what a portable digital wallet needs from a PWS server (the
 > server requirements a wallet checks before it trusts a server with an
 > account), and how a portable wallet lays out its data on that server (the

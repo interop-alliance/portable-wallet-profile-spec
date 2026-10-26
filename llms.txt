@@ -9,8 +9,8 @@ This is an experimental draft (v0.1), undergoing regular revisions. It is author
 - [Specification, full text (Markdown source)](https://raw.githubusercontent.com/interop-alliance/portable-wallet-profile-spec/main/spec.md): The entire profile. Read this one if you want everything.
 - [Specification, rendered](https://interop-alliance.github.io/portable-wallet-profile-spec/): The same document as static HTML, with section numbering, cross-references, and a table of contents. Requires no JavaScript.
 - [Specification, full text (Markdown source, published)](https://interop-alliance.github.io/portable-wallet-profile-spec/spec.md): The Markdown source, served from the same origin as the rendered page.
-- [Portable Web Spaces](https://w3c-ccg.github.io/wallet-attached-storage-spec/): The storage API this profile layers on.
-- [Encrypted Collections for Portable Web Spaces](https://interop-alliance.github.io/encrypted-collections-spec/): The sibling profile a wallet's encrypted collections follow.
+- [Portable Web Spaces](https://w3c-ccg.github.io/portable-web-spaces-spec/): The storage API this profile layers on.
+- [Encrypted Collections for Portable Web Spaces](https://w3c-ccg.github.io/portable-web-spaces-spec/ec/): The sibling profile a wallet's encrypted collections follow.
 
 ## Optional
 
