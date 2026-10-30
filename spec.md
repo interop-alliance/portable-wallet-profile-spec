@@ -268,21 +268,14 @@ Nothing server-wide travels in the outer layer. Each per-Space archive is
 self-describing: it carries the exporting server's service description beside
 its own manifest.
 
-The per-Space archive's internal layout -- its file-name codec, its dot-files,
-its manifest, and its entry order -- is specified in a section of its own,
-which this version of the profile does not yet carry. One property of the entry
-order is normative here, because a reader depends on it.
-
-A Resource stored as chunks has a chunk directory in its Collection's directory
-in the per-Space archive. It is the directory entry named
-`.chunks.<encodedResourceId>`, with the chunk files beneath it, and any
-per-chunk metadata sidecars. A writer MUST place all entries of one chunk
-directory together in the archive. That is the directory entry, its chunk files,
-and its sidecars, with no other entry between them. The position of a chunk
-directory relative to its Resource's representation file is not constrained. A
-reader MAY treat a Resource whose chunk directory is split as unreadable. Every
-other aspect of the per-Space archive's entry order remains unspecified in this
-version.
+The per-Space archive's internal layout (its file names, its manifest, its
+root entries and its entry order) is specified by the
+[Space Archive Format](https://w3c-ccg.github.io/portable-web-spaces-spec/#space-archive-format)
+section of [[PWS]]. This profile adds nothing to it. One property a reader here
+depends on is restated: a writer MUST keep all entries of one chunk directory
+(`.chunks.<encodedResourceId>`, its chunk files and its sidecars) together in
+the archive, and a reader MAY treat a Resource whose chunk directory is split
+as unreadable.
 
 #### The manifest {#bundle-manifest}
 
