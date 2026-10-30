@@ -201,9 +201,53 @@ This section states how a [=portable wallet=] lays out an [=account=] on a
 (see [[[#spec-identifier]]]).
 
 <p class="issue">
-  Partially written. The Space roles and their <code>type</code> arrays, the
-  system collections, and the record shapes are still to come. The backup
-  bundle is specified below.
+  Partially written. The system collections and the record shapes are still
+  to come. The Space roles and the backup bundle are specified below.
+</p>
+
+### Space roles and their types {#space-roles}
+
+An [=account=] holds Spaces in three roles. Each role is marked by the
+Space's `type` array, the member of its Space Description that [[PWS]]
+defines as an array of strings that includes `Space`.
+
+| Role | `type` |
+|------|--------|
+| The account Space | `['Space']` |
+| The client annex Space | `['AuxiliarySpace', 'DelegatedClientsSpace', 'Space']` |
+| An unlock Space | `['AuxiliarySpace', 'Space', 'UnlockSpace']` |
+
+Every unlock Space takes the unlock Space type, whether its record holds a
+passphrase, a passkey, a recovery code, or a [=backup credential=]. A
+recovery-code Space carries no further subtype. The record inside names the
+credential kind (see [[[#unlock-space-archive]]]).
+
+The `AuxiliarySpace` member marks a bookkeeping Space holding no user data.
+A wallet's user-data surfaces exclude a Space by that member. The role
+subtype beside it names which bookkeeping the Space holds. `UnlockSpace`
+licenses nothing at the server. `DelegatedClientsSpace` is the member the
+server's inspector clause recognizes when it widens what a transient
+verification method may delegate. What that clause licenses is client annex
+profile text under [[APP-CONNECT]]. This section only names the role.
+
+The account Space carries no role subtype on purpose. A plain `['Space']` is
+the [[PWS]] default, so the type does not mark an account Space by itself.
+The unlock record locates the account Space, and that pointer is what
+identifies it.
+
+A wallet MUST set `type` when it creates a Space in any of these roles. A
+server treats a Space's `type` as immutable after creation, so the type a
+restore creates a Space with is the type it keeps. A wallet MUST write the
+array lexically sorted, as [[PWS]] recommends for a stable serialization.
+
+A reader MUST match a role by member. A Space is in a role when its `type`
+contains that role's subtype, whatever else the array holds and in whatever
+order. A reader MUST NOT compare the array whole.
+
+<p class="note">
+  The subtype strings are permanent wire text. Every stored Space carries
+  them, and a List Spaces item is how a wallet tells an auxiliary Space from
+  a data Space without reading each Space. They are not renamed.
 </p>
 
 ### The backup bundle {#backup-bundle}
@@ -398,9 +442,9 @@ names the annex DID, and that DID embeds this Space's id, so the annex cannot
 be re-created elsewhere without a new pointer entry.
 
 Restore controller: the same shape as the account Space. The Space is created
-at its original id under the restoring session's `did:key`, typed as a
-delegated-clients Space, imported, and its controller promoted to the account
-DID.
+at its original id under the restoring session's `did:key`, with the client
+annex Space type of [[[#space-roles]]], imported, and its controller promoted
+to the account DID.
 
 Place in the restore order: third, after the account Space and before the
 login.
@@ -431,7 +475,8 @@ restored first of all, created and imported under that credential's own
 signature. Every other unlock Space is restored last, after the login, by the
 logged-in session invoking the management capability the unlock-methods
 registry holds for that entry. Each such Space is created at its original id
-with `controller` set to the entry's unlock identity, then imported.
+with `controller` set to the entry's unlock identity and the unlock Space
+type of [[[#space-roles]]], then imported.
 
 The late placement is forced. The management capability is a chain whose
 middle link names the account DID, and that link resolves only once the
@@ -531,16 +576,18 @@ bundle packs.
 
 #### The restore order {#restore-order}
 
-A restore runs the Spaces in one order:
+A restore runs the Spaces in one order. Each Space is created with the `type`
+its role takes in [[[#space-roles]]]:
 
 1. The acting credential's own unlock Space. Created at its original id under
-   that credential's unlock `did:key`, then imported, then read. A wrong
+   that credential's unlock `did:key` with the unlock Space type, then
+   imported, then read. A wrong
    credential or another account's bundle is refused by the record's own
    binding, which leaves one inert Space the same key can delete.
 2. The account Space. Created at its original id under the session's
    `did:key`, imported, and its controller promoted to the account
    `did:webvh`.
-3. The client annex Space. The same shape, typed as a delegated-clients Space.
+3. The client annex Space. The same shape, with the client annex Space type.
 4. An ordinary login, on the restored account.
 5. Every remaining unlock Space, as that session, through the management
    capability the unlock-methods registry holds for each entry.
